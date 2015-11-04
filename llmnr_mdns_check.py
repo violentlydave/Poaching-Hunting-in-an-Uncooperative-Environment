@@ -104,7 +104,7 @@ dns.qr = 0
 dns.opcode = 0
 dns.qdcount = 1
 dns.rq = 0
-dns.qd = DNSQR(qname=my_query,qtype='A')
+dns.qd = DNSQR(qname=my_query,qtype=my_qtype)
 pkt=ethernet/ip/udp/dns
 ans,unans=srp(pkt,multi=True,verbose=0,timeout=1)
 for p in ans:
@@ -126,7 +126,7 @@ dns.qr = 0
 dns.opcode = 0
 dns.qdcount = 1
 dns.rq = 0
-dns.qd = DNSQR(qname=my_query,qtype='A')
+dns.qd = DNSQR(qname=my_query,qtype=my_qtype)
 pkt=ethernet/ip/udp/dns
 ans,unans=srp(pkt,multi=True,verbose=0,timeout=1)
 for p in ans:
