@@ -6,6 +6,9 @@
  Thanks to Joff Thyer for his sample Scapy code.  Heavily used in the
  EvilAP tests.
 
+ These tools are all set to take an argument on commandline for interface,
+ or default to an internally set interface if nothing is provided.
+
 ------------------------------------------------------------------
 
 - option252_check.py - 
@@ -20,3 +23,6 @@ This Python script uses the Scapy library to send LLMNR and mDNS broadcast messa
 - eviltwin_check.py - 
 This Python script uses the Scapy library to send out 802.11 Probe Request packets from multiple MAC addresses set up to look like a variety of cell phones looking for a known wifi network.  It loops through the list of MAC addresses and each one requests a unique random 16bit long SSID.   Each MAC address is set so the last 4 bits are uniform to allow for the tester to watch for the packets and any responses via “Tshark” or “TCPdump”.
 
+Note: This script currently expects the monitor-interface to be "mon0".  This
+is set internally and can easily be changed if the interface you plan to use
+can't be "mon0" for any reason.
