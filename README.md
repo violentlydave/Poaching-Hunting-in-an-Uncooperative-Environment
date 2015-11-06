@@ -4,7 +4,7 @@
  Permission".
 
  Thanks to Joff Thyer for his sample Scapy code.  Heavily used in the
- EvilAP tests.
+ Evil Twin tests.
 
  These tools are all set to take an argument on command line for interface,
  or default to an internally set interface if nothing is provided.
