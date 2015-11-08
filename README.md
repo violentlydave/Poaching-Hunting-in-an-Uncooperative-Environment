@@ -26,3 +26,14 @@ This Python script uses the Scapy library to send out 802.11 Probe Request packe
 Note: The "karma_check.py" scrip expects the mon-int to be "mon0".  This
 is set internally and can easily be changed if the interface you plan to use
 can't be "mon0" for any reason.
+
+------------------------------------------------------------------
+
+Other files:
+
+- sample_wpad.dat -
+This is the sample wpad.dat PAC file referenced in the paper.  
+
+- simple_http_wpad.py -
+This is a simple web server based on Python's "SimpleHTTPServer" to serve a wpad.dat with the appropriate file/stream type.
+
