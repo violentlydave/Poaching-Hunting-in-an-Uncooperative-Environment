@@ -1,4 +1,8 @@
 #!/usr/bin/python
+#
+# llmnr_mdns_check.py - d.e.switzer # ZGF2aWQgZG90IGUgZG90IHN3aXR6ZXIgYXQgdGVoZ21haWx6Cg==
+# - Python/Scapy script to test for responses to broadcasted LLMNR and mDNS packets.
+#
 
 import logging,socket,fcntl,struct
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
@@ -40,7 +44,7 @@ mdns_target_ip = '224.0.0.251'
 mdns_target_mac = '01:00:5E:00:00:FB'
 
 print "-------------------------------------------------"
-print "LLMNR/mDNS spoof/poison attack checker - d.switzer 2015"
+print "LLMNR/mDNS poison/attack checker - d.switzer 2015"
 print "-------------------------------------------------"
 print "Sending on " + hw
 print ""

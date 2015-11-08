@@ -1,12 +1,9 @@
 #!/usr/bin/python
 #
-# option252_check.py -- sends DHCPINFORM packets to broadcast and shows
+# option252_check.py - d.e.switzer # ZGF2aWQgZG90IGUgZG90IHN3aXR6ZXIgYXQgdGVoZ21haWx6Cg==
+# - Script that sends DHCPINFORM packets to broadcast and shows
 # responses.  Used for checking for MITM attempts.
-#i@
-#42:55:52:4E:45:44
-#4E:4F:54:53:4F:42 
-#52:49:47:48:54:41 
-#4E:59:4D:4F:52:45
+#
 
 import logging,socket,fcntl,struct
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)

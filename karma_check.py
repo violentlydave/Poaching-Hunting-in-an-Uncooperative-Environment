@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Probe Tests -  D.switzer # ZGF2aWQgZG90IGUgZG90IHN3aXR6ZXIgYXQgdGVoZ21haWx6Cg==
+# karma_check.py - d.e.switzer # ZGF2aWQgZG90IGUgZG90IHN3aXR6ZXIgYXQgdGVoZ21haWx6Cg==
 # - test to send out random(ish) probes from various brand MAC addresses.
 # 
 # detect responses: tshark -i mon0 -Y "wlan.fc.type_subtype==5" | grep -i e0:28^C
@@ -39,7 +39,7 @@ int = hw
 mac = ''
 # - macend = string to add onto fake macs so we cna track via tcpdump or tshark
 macend = '62:82'
-macs = ['14:30:C6:B2','90:68:C3:30','60:BE:B5:83', 'F0:25:B7:C3', '10:A5:D0:FA', 'E8:50:8B:40', '38:AA:3C:FD', '68:AE:20:1F', 'F0:CB:A1:D2', '70:3E:AC:55', '20:A2:E4:35', 'FC:E9:98:BB', '64:BC:0C:51', 'F4:37:B7:D1']
+macs = ['14:30:C6:B2','90:68:C3:30','60:BE:B5:83', 'F0:25:B7:C3', '10:A5:D0:FA', 'E8:50:8B:40', '38:AA:3C:FD', '68:AE:20:1F', 'F0:CB:A1:D2', '70:3E:AC:55', '20:A2:E4:35', 'FC:E9:98:BB', '64:BC:0C:51', 'F4:37:B7:D1','42:55:52:4E:45:44','4E:4F:54:53:4F:42','52:49:47:48:54:41','4E:59:4D:4F:52:45']
 
 def randomssid(length):
         return ''.join(random.choice(string.lowercase) for i in range(length))

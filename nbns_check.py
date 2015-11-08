@@ -1,10 +1,8 @@
 #!/usr/bin/python
 #
-
-# receive back from : 
-#            DHCP-Message Option 53, length 1: ACK
-#            Server-ID Option 54, length 4: 172.16.78.178
-#           T252 Option 252, length 30: 26740,29808,14895,12081,14642,11825,13880,11831,14382,12599,14383,30576,24932,11876,24948
+# karma_check.py - d.e.switzer # ZGF2aWQgZG90IGUgZG90IHN3aXR6ZXIgYXQgdGVoZ21haWx6Cg==
+# - script to send out NetBios-NS broadcasts and check for responses.
+#
 
 import logging,socket,fcntl,struct
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
