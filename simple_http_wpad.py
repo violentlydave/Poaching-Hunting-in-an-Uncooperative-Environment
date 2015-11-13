@@ -1,6 +1,11 @@
 #!/usr/bin/python
 #
+# simple_http_wpad.py - d.e.switzer # ZGF2aWQgZG90IGUgZG90IHN3aXR6ZXIgYXQgdGVoZ21haWx6Cg==
+#
+# a simple HTTP server to serve up WPAD files (or misc other stuff) 
+#
 import sys,SimpleHTTPServer,SocketServer
+import BaseHTTPServer
 
 if len(sys.argv) > 1:
 	PORT = int(sys.argv[1])
