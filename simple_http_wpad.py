@@ -7,6 +7,9 @@
 import sys,SimpleHTTPServer,SocketServer
 import BaseHTTPServer
 
+__author__ = 'd.switzer'
+
+
 if len(sys.argv) > 1:
 	PORT = int(sys.argv[1])
 else:

@@ -8,6 +8,8 @@ import logging,socket,fcntl,struct
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 
+__author__ = 'd.switzer'
+
 # Set up the interface
 conf.checkIPaddr = False
 

@@ -9,6 +9,8 @@ logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 from scapy.layers.dns import DNSRR, DNS, DNSQR
 
+__author__ = 'd.switzer'
+
 conf.checkIPaddr = False
 
 # fo sho?  def.

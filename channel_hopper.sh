@@ -2,6 +2,7 @@
 #
 # Simple script to change channels on interfaces while
 # running wifi tests. - d.switzer 2015
+# ZGF2aWQgZG90IGUgZG90IHN3aXR6ZXIgYXQgdGVoZ21haWx6Cg==
 #
 # North America uses Channels 1 - 11 (2412 - 2462Mhz center channels w/ 22Mhz width)
 # Japan uses Channels 1 - 14 (14 only for 802.11b - 2412 - 2484 Mhz centerchannels w/ 22mhz width)
