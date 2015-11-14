@@ -55,13 +55,8 @@ SSID = ''
 conf.iface = interface
 int = interface
 hw = interface
-#int = hw
 mac = ''
-# - tag = string to add onto fake macs so we cna track via tcpdump or tshark
-#tag = '62:82'
-#channel = '19'
-macs = ['14:30:C6','90:68:C3','60:BE:B5', 'F0:25:B7', '10:A5:D0', 'E8:50:8B', '38:AA:3C', '68:AE:20', 'F0:CB:A1', '70:3E:AC', '20:A2:E4', 'FC:E9:98', '64:BC:0C', 'F4:37:B7']
-#'4e:4f:54', '53:4f:42', '52:49:47', '48:54:41', '4e:59:4d', '4f:52:45
+macs = ['14:30:C6','90:68:C3','60:BE:B5', 'F0:25:B7', '10:A5:D0', 'E8:50:8B', '38:AA:3C', '68:AE:20', 'F0:CB:A1', '70:3E:AC', '20:A2:E4', 'FC:E9:98', '64:BC:0C', 'F4:37:B7', '4e:4f:54', '53:4f:42', '52:49:47', '48:54:41', '4e:59:4d', '4f:52:45']
 
 def randomssid(length):
         return ''.join(random.choice(string.lowercase) for i in range(length))

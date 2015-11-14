@@ -37,5 +37,5 @@ This is the sample wpad.dat PAC file referenced in the paper.
 - simple_http_wpad.py -
 This is a simple web server based on Python's "SimpleHTTPServer" to serve a wpad.dat with the appropriate file/stream type.
 
-- channel_hopper.py -
+- channel_hopper.sh -
 A straight forward bash script for Linux to loop through channels and run the karma_check.py script.
