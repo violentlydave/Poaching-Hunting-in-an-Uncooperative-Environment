@@ -26,6 +26,7 @@ This Python script uses the Scapy library to send LLMNR and mDNS broadcast messa
 This Python script uses the Scapy library to send out 802.11 Probe Request packets from multiple MAC addresses set up to look like a variety of cell phones looking for a known wifi network.  It loops through the list of MAC addresses and each one requests a unique random 16bit long SSID.   Each MAC address is set so the last 4 bits are uniform to allow for the tester to watch for the packets and any responses via “Tshark” or “TCPdump”.
 
 Note: "karma_check.py" defaults to "mon0" as the monitor interface, which can be reset with --moninterface/-m.
+
 ------------------------------------------------------------------
 
 Other files:
