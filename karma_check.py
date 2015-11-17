@@ -7,6 +7,7 @@
 # detect responses: tshark -i mon0 -Y "wlan.fc.type_subtype==5" \
 #                       | grep -i e0:28^C
 #
+
 #dev#Motorola Moto G#14:30:C6:B2:XX:XX# https://youtube/watch?v=6FbpDBbw1x4
 #dev#Motorola Moto E#90:68:C3:30:XX:XX#- D.E.
 #dev#Moto X (2014)#60:BE:B5:83:XX:XX#- D.E.
@@ -22,17 +23,16 @@
 #dev#Nexus 5x#64:BC:0C:51:XX:XX#- C.M.
 #dev#Nexus 6#F8:CF:C5:D2:XX:XX#- K.S.
 #dev#Apple iPhone 6#F4:37:B7:D1:XX:XX#- J.P.
-#
 
 import argparse, random, string, logging
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 
-__author__ = 'd.switzer'
+__author__ = 'd.e.switzer'
 
 def get_me_some_args():
     parser = argparse.ArgumentParser(
-        description='Script retrieves schedules from a given server')
+        description='Script sends out randomized 802.11 probe requests.')
     # Add arguments
     parser.add_argument(
         '-i', '--interface', type=str, help='Wifi interface', required=True)
@@ -69,7 +69,7 @@ class Scapy80211():
       self.bssid   = bssid
       self.intf    = intf
       self.intfmon = 'mon0'
-      conf.iface = self.intfmon
+      conf.iface   = self.intfmon
 
       # create monitor interface using iw
       cmd = '/sbin/iw dev %s interface add %s type monitor >/dev/null 2>&1' \
@@ -81,38 +81,40 @@ class Scapy80211():
 
     def ProbeReq(self,count=1,ssid=SSID,dst='ff:ff:ff:ff:ff:ff'):
       if not ssid: ssid=self.ssid
-      param = Dot11ProbeReq()
-      essid = Dot11Elt(ID='SSID',info=ssid)
-      rate1 = '\x02\x04\x0b\x16'
-      rate2 = '\x82\x84\x0b\x16\x24\x30\x48\x6c'
-      rate3 = "\x03\x12\x96\x18\x24\x30\x48\x60"
-      rate4 = '\x82\x84\x8b\x96\x12\x24\x48\x6c'
-      rates = Dot11Elt(ID='Rates',info=rate4)
-      dsset = Dot11Elt(ID='DSset',info=chr(1))
+      param =	Dot11ProbeReq()
+      essid =	Dot11Elt(ID='SSID',info=ssid)
+      rate1 =	"\x02\x04\x0b\x16"
+      rate2 =	"\x82\x84\x0b\x16\x24\x30\x48\x6c"
+      rate3 =	"\x03\x12\x96\x18\x24\x30\x48\x60"
+      rate4 =	"\x82\x84\x8b\x96\x12\x24\x48\x6c"
+      rates =	Dot11Elt(ID='Rates',info=rate4)
+      dsset =	Dot11Elt(ID='DSset',info=chr(1))
       erpinfo = Dot11Elt(ID='ERPinfo',info='\x00')
-      esrates = Dot11Elt(ID='ESRates',info='\x0c\x18\x30\x60')
-      tim = Dot11Elt(ID='TIM',info='\x00\x01\x00\x00')
+      esrates =	Dot11Elt(ID='ESRates',info='\x0c\x18\x30\x60')
+      tim =	Dot11Elt(ID='TIM',info='\x00\x01\x00\x00')
 
 # Vendor specific / tagged extras for playing w/.  Modeled after a
 # realtek device -- play w/ and/or add to the packet as you'd like -
 # just add "/vendor" onto the end of the "pkt = RadioTap()" definition
 # below!
-      uuidr = "\x10\x48\x00\x10\x52\x61\x6c\x69\x6e\x6b\x57\x50\x53\x2d\xac\x81\x12\xa1\xa3\x74"
-      primarydevicetype = "\x10\x54\x00\x08\x00\x01\x00\x50\xf2\x04\x00\x01"
-      rfbands = "\x10\x3c\x00\x01\x01"
-      assocstate = "\x10\x02\x00\x02\x00\x00"
-      configerror  = "\x10\x09\x00\x02\x00\x00"
-      devicepassid = "\x10\x12\x00\x02\x00\x00"
-      devicename =   "\x10\x11\x00\x0d\x52\x61\x6c\x69\x6e\x6b\x20\x43\x6c\x69\x65\x6e\x74"
-      manufacturer = "\x10\x21\x00\x18\x52\x61\x6c\x69\x6e\x6b\x20\x54\x65\x63\x68\x6e\x6f\x6c\x6f\x67\x79\x2c\x20\x43\x6f\x72\x70\x2e"
-      modelname = "\x10\x23\x00\x17\x52\x62\x6c\x6e\x6b\x20\x57\x69\x72\x65\x6c\x65\x73\x73\x20\x41\x64\x61\x70\x74\x65\x72\x10"
-      modelnum = "\x10\x24\x00\x06\x52\x54\x32\x38\x30\x30"
+      uuidr = 		"\x10\x48\x00\x10\x52\x61\x6c\x69\x6e\x6b\x57\x50\x53\x2d\xac\x81\x12\xa1\xa3\x74"
+      primarydevtype =	"\x10\x54\x00\x08\x00\x01\x00\x50\xf2\x04\x00\x01"
+      rfbands = 	"\x10\x3c\x00\x01\x01"
+      assocstate = 	"\x10\x02\x00\x02\x00\x00"
+      configerror  =	"\x10\x09\x00\x02\x00\x00"
+      devicepassid = 	"\x10\x12\x00\x02\x00\x00"
+      devicename =   	"\x10\x11\x00\x0d\x52\x61\x6c\x69\x6e\x6b\x20\x43\x6c\x69\x65\x6e\x74"
+      manufacturer = 	"\x10\x21\x00\x18\x52\x61\x6c\x69\x6e\x6b\x20\x54\x65\x63\x68\x6e\x6f\x6c\x6f\x67\x79\x2c\x20\x43\x6f\x72\x70\x2e"
+      modelname = 	"\x10\x23\x00\x17\x52\x62\x6c\x6e\x6b\x20\x57\x69\x72\x65\x6c\x65\x73\x73\x20\x41\x64\x61\x70\x74\x65\x72\x10"
+      modelnum = 	"\x10\x24\x00\x06\x52\x54\x32\x38\x30\x30"
       vendorextension = "\x10\x49\x00\x06\x00\x37\x2a\x00\x01\x20"
-      hdcap = "\x2d\x1a\x6e\x01\x02\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-      hdcap2 ="\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x00\x00\x00"
-      extendedcap = "\x7f\x01\x01"
-      vendor = Dot11Elt(ID=221,len=167,info="\x00\x50\xf2\x04\x10\x4a" +
-           "\x00\x01\x10\x10" + "\x3a\x00" + "\x01\x00\x10\x08" + "\x00\x02" + "\x22\x8c" + uuidr + primarydevicetype + rfbands + assocstate + configerror + devicepassid + devicename + manufacturer + modelname + modelnum + vendorextension +hdcap + hdcap2 + extendedcap)
+      hdcap = 		"\x2d\x1a\x6e\x01\x02\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+      hdcap2 =		"\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x00\x00\x00"
+      extendedcap = 	"\x7f\x01\x01"
+      vendor = 		Dot11Elt(ID=221,len=167,info="\x00\x50\xf2\x04\x10\x4a" +
+           		"\x00\x01\x10\x10" + "\x3a\x00" + "\x01\x00\x10\x08" + "\x00\x02" + "\x22\x8c" + 
+			uuidr + primarydevtype + rfbands + assocstate + configerror + devicepassid + devicename + 
+			manufacturer + modelname + modelnum + vendorextension +hdcap + hdcap2 + extendedcap)
 
       pkt = RadioTap()\
         /Dot11(type=0,subtype=4,addr1=dst,addr2=self.source,addr3=self.bssid)\
@@ -143,6 +145,7 @@ for mac in macs:
 	yay = ":"
 	seq = (mac, channel, tag) 
 	testmac = yay.join ( seq )
+#	SSID = "i appear missing"
 	SSID = randomssid(32)
 	sdot11 = Scapy80211(intf=int,source=testmac,ssid=SSID)
 	packet = sdot11.ProbeReq()

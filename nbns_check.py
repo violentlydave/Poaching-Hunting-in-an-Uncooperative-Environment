@@ -4,22 +4,26 @@
 # - script to send out NetBios-NS broadcasts and check for responses.
 #
 
-import logging,socket,fcntl,struct
+import argparse,logging,socket,fcntl,struct
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 
 __author__ = 'd.switzer'
 
-# Set up the interface
-conf.checkIPaddr = False
+def get_me_some_args():
+    parser = argparse.ArgumentParser(
+        description='Script sends out randomized NetBIOS-NS checks and analyzes any responses.')
+    # Add arguments
+    parser.add_argument(
+        '-i', '--interface', type=str, help='Network interface', required=True)
+    args = parser.parse_args()
+    interface = args.interface
+    return interface
 
-#Handle Custom Queries
-if len(sys.argv) > 1:
-    hw = sys.argv[1]
-    conf.iface = sys.argv[1]
-else:
-    hw = 'eth5'
-    conf.iface = hw
+interface = get_me_some_args()
+hw = interface
+conf.iface = interface
+conf.checkIPaddr = False
 
 # fo sho?  def.
 def randomstuff(length):
@@ -33,14 +37,16 @@ print "-------------------------------------------------"
 print "NBNS spoof/poison attack checker - d.switzer 2015"
 print "-------------------------------------------------"
 print "Sending on " + hw
-#let's build some packets.. ok one.
-QUERY_NAME = "WPAD"
-myip = get_ip_address(hw)
-ethernet = Ether(dst='ff:ff:ff:ff:ff:ff')
-ip = IP(src=myip, dst='255.255.255.255')
-udp = UDP(sport=137, dport=137)
-nbns = NBNSQueryRequest(SUFFIX="file server service",QUESTION_NAME=QUERY_NAME, QUESTION_TYPE='NB')
-nbnsquery = ethernet / ip / udp / nbns
+
+#let's build some packets.. ok, one packet.
+nsquery = "WPAD"
+myip 	= get_ip_address(hw)
+ether 	= Ether(dst='ff:ff:ff:ff:ff:ff')
+ip 	= IP(src=myip, dst='255.255.255.255')
+udp 	= UDP(sport=137, dport=137)
+nbns 	= NBNSQueryRequest(SUFFIX="file server service",QUESTION_NAME=nsquery, QUESTION_TYPE='NB')
+nbnsquery = ether/ip/udp/nbns
+
 print "-------------------------------------------------"
 print "Checking for WPAD via NBNS broadcast.."
 print "-------------------------------------------------"
@@ -52,12 +58,12 @@ for p in ans:
 print ans
 
 # now a random "question" name.
-QUERY_NAME = randomstuff(16)
+nsquery = randomstuff(16)
 print "-------------------------------------------------"
-print "Checking for random (" + QUERY_NAME + ") hostname via NBNS broadcast.."
+print "Checking for random (" + nsquery + ") hostname via NBNS broadcast.."
 print "-------------------------------------------------"
-nbns = NBNSQueryRequest(SUFFIX="file server service",QUESTION_NAME=QUERY_NAME, QUESTION_TYPE='NB')
-nbnsquery = ethernet / ip / udp / nbns
+nbns = NBNSQueryRequest(SUFFIX="file server service",QUESTION_NAME=nsquery, QUESTION_TYPE='NB')
+nbnsquery = ether / ip / udp / nbns
 ans,unans = srp(nbnsquery,multi=True,timeout=1,verbose=0)
 for p in ans:
         print p[1][Ether].src, p[1][IP].src

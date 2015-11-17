@@ -11,8 +11,8 @@
 # Change STARTCHANNEL and ENDCHANNEL as needed, defaults to North American channels.
 
 IFACE="wlan18"
-STARTCHANNEL=10
-ENDCHANNEL=10
+STARTCHANNEL=1
+ENDCHANNEL=14
 
 if [[ $# -eq 0 ]] ; then
 	echo "-------------------------------------------------"

@@ -4,13 +4,26 @@
 # - Python/Scapy script to test for responses to broadcasted LLMNR and mDNS packets.
 #
 
-import logging,socket,fcntl,struct
+import argparse,logging,socket,fcntl,struct
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 from scapy.layers.dns import DNSRR, DNS, DNSQR
 
 __author__ = 'd.switzer'
 
+def get_me_some_args():
+    parser = argparse.ArgumentParser(
+        description='Script sends out LLMNR and mDNS broadcast, and analyzes the responses.')
+    # Add arguments
+    parser.add_argument(
+        '-i', '--interface', type=str, help='Wifi interface', required=True)
+    args = parser.parse_args()
+    interface = args.interface
+    return interface
+
+interface = get_me_some_args()
+hw = interface
+conf.iface = interface
 conf.checkIPaddr = False
 
 # fo sho?  def.
@@ -25,14 +38,6 @@ def get_mac_addy(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     info = fcntl.ioctl(s.fileno(), 0x8927,  struct.pack('256s', ifname[:15]))
     return ':'.join(['%02x' % ord(char) for char in info[18:24]])
-
-# Options .. like an interface on commandline.
-if len(sys.argv) > 1:
-    hw = sys.argv[1]
-    conf.iface = sys.argv[1]
-else:
-    hw = 'eth5'
-    conf.iface = hw
 
 my_ip = get_ip_addy(hw)
 my_mac = get_mac_addy(hw)
@@ -50,7 +55,6 @@ print "LLMNR/mDNS poison/attack checker - d.switzer 2015"
 print "-------------------------------------------------"
 print "Sending on " + hw
 print ""
-print
 print "-------------------------------------------------"
 print "Sending LLMNR request for " + my_query + " .."
 ethernet = Ether(src=my_mac,dst=llmnr_target_mac)
@@ -141,5 +145,4 @@ for p in ans:
         print "-------------------------------------------------"
 print ans
 print unans
-
 
