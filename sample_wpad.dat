@@ -1,4 +1,4 @@
-// Modified of example PAC file from http://findproxyforurl.com
+// Modified version of PAC file from http://findproxyforurl.com
 // The concept is to deliver any local traffic directly, or any
 // other traffic that wouldn't be helpful for what you are looking for.
 //

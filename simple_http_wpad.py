@@ -4,26 +4,31 @@
 #
 # a simple HTTP server to serve up WPAD files (or misc other stuff) 
 #
-import sys,SimpleHTTPServer,SocketServer
+import argparse,sys,SimpleHTTPServer,SocketServer
 import BaseHTTPServer
 
-__author__ = 'd.switzer'
+__author__ = 'd.e.switzer'
 
-if len(sys.argv) > 1:
-	PORT = int(sys.argv[1])
-else:
-	PORT = 80
+def get_me_some_args():
+    parser = argparse.ArgumentParser(
+        description='Simple HTTP server that serves data from local dir.')
+    parser.add_argument(
+        '-p', '--port', type=int, help='Port for the HTTP server to run on.', required=False, default='80')
+    args = parser.parse_args()
+    port = args.port
+    return port
 
+port = get_me_some_args()
 my_handler = SimpleHTTPServer.SimpleHTTPRequestHandler
 my_handler.extensions_map.update({
  '.dat': 'application/x-ns-proxy-autoconfig','.pac': 'application/x-ns-proxy-autoconfig' });
-httpd = SocketServer.TCPServer(("", PORT), my_handler)
+httpd = SocketServer.TCPServer(("", port), my_handler)
 
 try:
 	print "-------------------------------------------------"
 	print "Super Simple HTTP Server - d.switzer 2015"
 	print "-------------------------------------------------"
-	print "Listening on port ", PORT
+	print "Listening on port ", port
 	httpd.serve_forever()
 
 except KeyboardInterrupt:

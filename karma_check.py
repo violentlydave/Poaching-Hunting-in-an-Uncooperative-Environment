@@ -2,11 +2,8 @@
 #
 # karma_check.py - d.e.switzer 
 # ZGF2aWQgZG90IGUgZG90IHN3aXR6ZXIgYXQgdGVoZ21haWx6Cg==
-# - test to send out random(ish) probes from various brand MAC addresses.
+# - test to send out random probes from various brand MAC addresses.
 # 
-# detect responses: tshark -i mon0 -Y "wlan.fc.type_subtype==5" \
-#                       | grep -i e0:28^C
-#
 
 #dev#Motorola Moto G#14:30:C6:B2:XX:XX# https://youtube/watch?v=6FbpDBbw1x4
 #dev#Motorola Moto E#90:68:C3:30:XX:XX#- D.E.
@@ -33,13 +30,12 @@ __author__ = 'd.e.switzer'
 def get_me_some_args():
     parser = argparse.ArgumentParser(
         description='Script sends out randomized 802.11 probe requests.')
-    # Add arguments
     parser.add_argument(
         '-i', '--interface', type=str, help='Wifi interface', required=True)
     parser.add_argument(
         '-m', '--moninterface', type=str, help='Wifi monitor interface', required=False, default='mon0')
     parser.add_argument(
-        '-c', '--channel', type=str, help='Channel #', required=True)
+        '-c', '--channel', type=str, help='Channel #', required=False, default='11')
     parser.add_argument(
         '-t', '--tag', type=str, help='Tag to search for in MAC address', required=False, default='62:82')
     args = parser.parse_args()
@@ -74,8 +70,10 @@ class Scapy80211():
       # create monitor interface using iw
       cmd = '/sbin/iw dev %s interface add %s type monitor >/dev/null 2>&1' \
         % (self.intf, self.intfmon)
+      cmdintup = '/sbin/ifconfig %s up > /dev/null 2>&1' % (self.intfmon)
       try:
         os.system(cmd)
+	os.system(cmdintup)
       except:
         raise
 
@@ -111,7 +109,7 @@ class Scapy80211():
       hdcap = 		"\x2d\x1a\x6e\x01\x02\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
       hdcap2 =		"\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x00\x00\x00"
       extendedcap = 	"\x7f\x01\x01"
-      vendor = 		Dot11Elt(ID=221,len=167,info="\x00\x50\xf2\x04\x10\x4a" +
+      vendor = 		Dot11Elt(ID=221,len=167,info="\x00\x50\xf2\x04\x10\x4a" + 
            		"\x00\x01\x10\x10" + "\x3a\x00" + "\x01\x00\x10\x08" + "\x00\x02" + "\x22\x8c" + 
 			uuidr + primarydevtype + rfbands + assocstate + configerror + devicepassid + devicename + 
 			manufacturer + modelname + modelnum + vendorextension +hdcap + hdcap2 + extendedcap)

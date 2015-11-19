@@ -11,7 +11,6 @@ from scapy.all import *
 def get_me_some_args():
     parser = argparse.ArgumentParser(
         description='Script sends out DHCPINFORM option252 broadcast and analyzes responses.')
-    # Add arguments
     parser.add_argument(
         '-i', '--interface', type=str, help='Network interface', required=True)
     args = parser.parse_args()
@@ -50,8 +49,6 @@ dhcpmsg	= DHCP(options=[("message-type","inform")])
 dhcpopt	= DHCP(options=[("param_req_list",option252), "end"])
 
 dhcp_inform = ether/ip/udp/bootp/dhcpmsg/dhcpopt
-#dhcp_inform = Ether(dst="ff:ff:ff:ff:ff:ff")/IP(src="172.16.78.42",dst="255.255.255.255")/UDP(sport=68,dport=67)/BOOTP(chaddr="f0:76:1c:e0:08:25",ciaddr="172.16.78.42")/DHCP(options=[("message-type","inform")])/DHCP(options=[("param_req_list",option252), "end"])
-
 ans,unans = srp(dhcp_inform,multi=True,timeout=1,verbose=0)
 
 print "-------------------------------------------------"

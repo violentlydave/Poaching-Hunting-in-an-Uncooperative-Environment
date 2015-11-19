@@ -8,12 +8,11 @@ import argparse,logging,socket,fcntl,struct
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 
-__author__ = 'd.switzer'
+__author__ = 'd.e.switzer'
 
 def get_me_some_args():
     parser = argparse.ArgumentParser(
         description='Script sends out randomized NetBIOS-NS checks and analyzes any responses.')
-    # Add arguments
     parser.add_argument(
         '-i', '--interface', type=str, help='Network interface', required=True)
     args = parser.parse_args()

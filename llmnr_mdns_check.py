@@ -9,12 +9,11 @@ logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 from scapy.layers.dns import DNSRR, DNS, DNSQR
 
-__author__ = 'd.switzer'
+__author__ = 'd.e.switzer'
 
 def get_me_some_args():
     parser = argparse.ArgumentParser(
         description='Script sends out LLMNR and mDNS broadcast, and analyzes the responses.')
-    # Add arguments
     parser.add_argument(
         '-i', '--interface', type=str, help='Wifi interface', required=True)
     args = parser.parse_args()
