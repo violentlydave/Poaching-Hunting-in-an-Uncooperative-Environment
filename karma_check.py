@@ -4,7 +4,11 @@
 # ZGF2aWQgZG90IGUgZG90IHN3aXR6ZXIgYXQgdGVoZ21haWx6Cg==
 # - test to send out random probes from various brand MAC addresses.
 # 
-
+#
+# - Phones w/ url were found via Youtube
+# - Phones w/ initials were found via personal contact.  Assume
+#   cell purchased in, and used on a provider located in the United States.
+#
 #dev#Motorola Moto G#14:30:C6:B2:XX:XX# https://youtube/watch?v=6FbpDBbw1x4
 #dev#Motorola Moto E#90:68:C3:30:XX:XX#- D.E.
 #dev#Moto X (2014)#60:BE:B5:83:XX:XX#- D.E.
@@ -91,10 +95,13 @@ class Scapy80211():
       esrates =	Dot11Elt(ID='ESRates',info='\x0c\x18\x30\x60')
       tim =	Dot11Elt(ID='TIM',info='\x00\x01\x00\x00')
 
-# Vendor specific / tagged extras for playing w/.  Modeled after a
-# realtek device -- play w/ and/or add to the packet as you'd like -
-# just add "/vendor" onto the end of the "pkt = RadioTap()" definition
-# below!
+# Vendor specific extras.  Modeled after a Realtek device.  Add
+# "/vendor" to the "pkt" definition below if you'd like to use them.
+#
+# These values are easy to find in WireShark under the "tagged options" for
+# a wireless packet, and the variables below are named to be close or identical
+# to how they are named in WireShark.
+#
       uuidr = 		"\x10\x48\x00\x10\x52\x61\x6c\x69\x6e\x6b\x57\x50\x53\x2d\xac\x81\x12\xa1\xa3\x74"
       primarydevtype =	"\x10\x54\x00\x08\x00\x01\x00\x50\xf2\x04\x00\x01"
       rfbands = 	"\x10\x3c\x00\x01\x01"
