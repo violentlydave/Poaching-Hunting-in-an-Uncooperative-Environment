@@ -1,10 +1,18 @@
-# Poaching: Hunting without Permission#
+# Poaching: Hunting in an Uncooperative Environment #
 
- This is the code that goes along with the paper "Poaching: Hunting without
- Permission".
+ This is the code that goes along with the paper "Poaching: Hunting in an Uncooperative Environment",
+ (originally published as "Poaching: Hunting without Permission": https://www.sans.org/reading-room/whitepapers/detection/poaching-hunting-permission-36537 - Nov 24 2015)
 
- Thanks to Joff Thyer for his sample Scapy code.  Heavily used in the
- Karma tests.
+ This was initially prepared for a SANS certification, but updates will continue now that there is no time deadline.
+ This will include an updated version of the paper, which.. is rather lacking.  The sleep deprivation, day-job deadlines,
+ and the deadline to get the paper in fast was showing.
+
+ Thanks to:
+ Joff Thyer for his sample Scapy code.  Heavily referenced in the Karma tests.
+ 
+ Trace H - for starting the train and pushing me forward.
+ Mike M - for seeing the value in training.
+ .. Jaci K.. for dealing with me dealing with this and lots of pre-cursors for 2 years.
 
  These tools are all set to take an argument on command line for interface,
  or default to an internally set interface if nothing is provided.
