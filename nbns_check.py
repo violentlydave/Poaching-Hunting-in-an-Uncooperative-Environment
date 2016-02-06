@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# karma_check.py - d.e.switzer # ZGF2aWQgZG90IGUgZG90IHN3aXR6ZXIgYXQgdGVoZ21haWx6Cg==
+# nbns_check.py - d.e.switzer # ZGF2aWQgZG90IGUgZG90IHN3aXR6ZXIgYXQgdGVoZ21haWx6Cg==
 # - script to send out NetBios-NS broadcasts and check for responses.
 #
 
